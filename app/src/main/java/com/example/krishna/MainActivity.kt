@@ -62,16 +62,10 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnItemClickListener 
         val call: Call<Response> = apiSerivce.movieList(1,filter)
         call.enqueue(object : Callback<Response> {
             override fun onFailure(call: Call<Response>, t: Throwable) {
-                //Toast.makeText(this@MainActivity, "Failure", Toast.LENGTH_SHORT).show()
                 setDatavisibiity(2)
             }
 
             override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
-//                Toast.makeText(
-//                    this@MainActivity,
-//                    "SUCCESS.... " + response.body()?.search.toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show()
                 setDatavisibiity(3)
                 setAdapter(response.body())
             }
