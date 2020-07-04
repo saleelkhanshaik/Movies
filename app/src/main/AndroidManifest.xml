@@ -13,25 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activitydetails.C"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.MAIN"/>
-                <data android:scheme="tel">
-
-                </data>
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".activitydetails.D" />
-        <activity android:name=".activitydetails.B" />
-        <activity android:name=".activitydetails.A">
+        <activity android:name=".mvvm.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activitydetails.C"
+            android:launchMode="singleTop">
+<!--            <intent-filter>-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <data android:scheme="tel" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".activitydetails.D" />
+        <activity android:name=".activitydetails.B" />
+        <activity android:name=".activitydetails.A">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".MainActivity">
 
