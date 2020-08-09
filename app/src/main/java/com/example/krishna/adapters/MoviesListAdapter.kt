@@ -4,37 +4,37 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.krishna.R
 import com.example.krishna.common.CircleTransform
+import com.example.krishna.databinding.MovieitemviewBinding
 import com.example.krishna.model.SearchItem
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.movieitemview.view.*
 import java.lang.Exception
 
 
 class MoviesListAdapter(val mContext: Context, val moviesList: MutableList<SearchItem>, val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MoviesListAdapter.ChildHolder>() {
-    class ChildHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val movieName = view.movieName
-        val yearTxt = view.yearTxt
-        val imdbIdtxt = view.imdbIdtxt
-        val movieTypetxt = view.movieTypetxt
-        val moviePoster = view.moviePoster
-        val progressBar =view.progressBar
+    class ChildHolder(val view: MovieitemviewBinding) : RecyclerView.ViewHolder(view.root) {
+
         fun bind(user: SearchItem,clickListener: OnItemClickListener)
         {
             itemView.setOnClickListener {
                 clickListener.onItemClicked(user)
             }
         }
+
+        fun setData(movieObj: SearchItem) {
+            view.movieItem=movieObj
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildHolder {
-        val view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.movieitemview, parent, false)
-        return ChildHolder(view)
+        val m :MovieitemviewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            R.layout.movieitemview,parent,false)
+        return ChildHolder(m)
     }
 
     override fun getItemCount(): Int {
@@ -43,23 +43,7 @@ class MoviesListAdapter(val mContext: Context, val moviesList: MutableList<Searc
 
     override fun onBindViewHolder(holder: ChildHolder, position: Int) {
         val movieObj = moviesList[position] as SearchItem
-        holder.movieName.text = movieObj.title
-        holder.yearTxt.text = movieObj.year
-        holder.movieTypetxt.text = movieObj.type
-        holder.imdbIdtxt.text =movieObj.imdbID
-        Picasso.get()
-            .load(movieObj.poster)
-            .centerCrop()
-            .transform(CircleTransform(50,0))
-            .fit()
-            .into(holder.moviePoster,object :Callback {
-                override fun onSuccess() {
-                    holder.progressBar.setVisibility(View.GONE)
-                }
-
-                override fun onError(e: Exception?) {
-
-                }})
+        holder.setData(movieObj)
         holder.bind(movieObj,itemClickListener)
 
 }
